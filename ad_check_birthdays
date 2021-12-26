@@ -1,0 +1,55 @@
+<?php
+/*
+Name:         AD DateTrigger for FluentCRM
+Description:  FluentCRM as a WordPress CRM lacks a date trigger for automation. This function determines if 
+              today is a date that should trigger an automation in FluentCRM and then adds a Tag or List to
+              the contact. This can then be used to start an automation in FluentCRM.
+              The function hooks into the WP-cron because it is not time critical.
+              For the time being it should run during night or a time when only few users are active on the 
+              site to avoid any performance issues. This planned to improve in a future version.
+              It is meant to run via Advanced Scripts/Scripts Organizer/Code Snippet or functions.php. It is 
+              not a plugin.
+Author:       <a href="https://www.littlebig.co/">André Daus</a>
+Project:      Advanced Scripts: Provide DateTrigger for FluentCRM
+Version:      0.0.1
+Plugin URI:   https://github.com/andredaus/FluentCRM-DateTrigger/
+Copyright:    © 2022, André Daus
+
+Version History:
+Date		Version		Description
+--------------------------------------------------------------------------------------------------------------
+2021-12-26	0.0.1		Changes:
+						- Initial version
+						- Used for birthday greetings
+						Fixes:
+						- N/A
+            
+*/
+if ( ! wp_next_scheduled( 'ad_check_birthdays' ) ) {
+    // Set WP-Cron to run at 2:00am GMT every day
+    $scheduletime = new DateTime(date('Y')."-".date('m')."-".date('d')." 02:00 GMT"); 
+    $scheduletime->modify('+1 day');
+    wp_schedule_event( strtotime($scheduletime->format('Y-m-d H:i:s')), 'daily', 'ad_check_birthdays' );
+}
+
+//Create a hook for WP-Cron
+add_action( 'ad_check_birthdays', 'ad_check_birthdays' );
+
+function ad_check_birthdays() {
+    $contactApi = FluentCrmApi('contacts');
+    
+    // Only consider Contacts that are on the birthday list
+    $listIds = [6]; // Birthday list ID
+    $searchResult = $contactApi->getInstance()->filterByLists($listIds)->get();
+    
+    foreach ($searchResult as $contact) {
+        // Only consider contacts that have a full set of data (birthday, first name, last name, email
+        if (date_parse($contact->date_of_birth)[month] == date('m') && date_parse($contact->date_of_birth)[day] == date('d') && $contact->first_name != "" && $contact-last_name != "" && $contact->email != "") {
+            // Set Tag to 'Happy Birthday!'. That is the trigger for the the automation. The automation kicks in when this Tag is assigned. Can also be a List.
+            $tagIds = [6];
+            $contact->attachTags($tagIds);
+        }
+    }
+}
+
+?>
