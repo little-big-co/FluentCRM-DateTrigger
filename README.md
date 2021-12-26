@@ -4,6 +4,12 @@ FluentCRM as a WordPress CRM lacks a date trigger for automation. This function 
 
 *This is BETA.*
 
+## Install
+
+Add the code to your functions.php or Scripts Manager
+
+For convenience you can simply import the json in this package.
+
 ## Setup
 
 Change the following details according to your set up:
