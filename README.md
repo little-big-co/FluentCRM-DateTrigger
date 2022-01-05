@@ -17,3 +17,7 @@ Change the following details according to your set up:
   - $tagIds -> Set the ID (only one!) that is used for the automation to kick off
 
 Create an automation in FluentCRM that looks for contacts added to the tag above.
+
+## Finetuning
+
+You can now set the number of days before or after the birthday to kick in the tag/list.
