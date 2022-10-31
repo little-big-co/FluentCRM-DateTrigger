@@ -11,7 +11,7 @@ Description:  FluentCRM as a WordPress CRM lacks a date trigger for automation. 
               not a plugin.
 Author:       <a href="https://www.littlebig.co/">André Daus</a>
 Project:      Advanced Scripts: Provide DateTrigger for FluentCRM
-Version:      0.0.1
+Version:      0.1.0
 Plugin URI:   https://github.com/andredaus/FluentCRM-DateTrigger/
 Copyright:    © 2022, André Daus
 
