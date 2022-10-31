@@ -4,6 +4,8 @@ FluentCRM as a WordPress CRM lacks a date trigger for automation. This function 
 
 *This is BETA.*
 
+Although, FluentCRM now has a birthday function. It works for just that, birthdays. With this solution you can also apply the functionality to other datefields.
+
 ## Install
 
 Add the code to your functions.php or Scripts Manager
@@ -21,3 +23,8 @@ Create an automation in FluentCRM that looks for contacts added to the tag above
 ## Finetuning
 
 You can now set the number of days before or after the birthday to kick in the tag/list.
+
+## Buy me a coffee
+
+If you like this solution and want to thank me, you can buy me a coffee at ko-fi.com/andredaus
+I appreciate your support!
