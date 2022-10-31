@@ -60,7 +60,7 @@ function ad_check_birthdays() {
     
     foreach ($searchResult as $contact) {
         // Only consider contacts that have a full set of data (birthday, first name, last name, email)
-	// For other dates than birthday use the appropriate field from contact. date_parse($contact->date_of_birth)[day] refers to the original birthday field. But it work for any other field as well. Just change it to the appropriate one.
+	// For other dates than birthday use the appropriate field from contact. date_parse($contact->date_of_birth) refers to the original birthday field (two times, one for day and one for mointh!). But it work for any other field as well. Just change it to the appropriate one.
 	// Firther, if you don't want to rely on a full set of data (first and last name), you can remove them from the query. Be aware that you won't be able to use those in you brithday email, if they do not exist!
 	
         if (date_parse($contact->date_of_birth)[month] == date('m',$reference_date) && date_parse($contact->date_of_birth)[day] == date('d',$reference_date) && $contact->first_name != "" && $contact-last_name != "" && $contact->email != "") {
