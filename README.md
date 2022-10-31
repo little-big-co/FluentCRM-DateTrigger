@@ -26,5 +26,6 @@ You can now set the number of days before or after the birthday to kick in the t
 
 ## Buy me a coffee
 
-If you like this solution and want to thank me, you can buy me a coffee at ko-fi.com/andredaus
+If this solution helped you and you want to thank me, you can buy me a coffee at [ko-fi.com/andredaus](https://ko-fi.com/andredaus) 
+
 I appreciate your support!
