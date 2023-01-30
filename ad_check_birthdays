@@ -11,9 +11,9 @@ Description:  FluentCRM as a WordPress CRM lacks a date trigger for automation. 
               not a plugin.
 Author:       <a href="https://www.littlebig.co/">André Daus</a>
 Project:      Advanced Scripts: Provide DateTrigger for FluentCRM
-Version:      0.1.1
+Version:      0.1.2
 Plugin URI:   https://github.com/andredaus/FluentCRM-DateTrigger/
-Copyright:    © 2022, André Daus
+Copyright:    © 2023, André Daus
 
 Version History:
 Date		Version		Description
@@ -34,6 +34,9 @@ Date		Version		Description
 				- Extend description for other fields than just birthday. See comments in code!
 				Fixes:
 				- Small typo in a version
+				
+2023-01-30      0.1.2		Changes:
+				- Clean up and minor fix contact selection 				
             
 */
 if ( ! wp_next_scheduled( 'ad_check_birthdays' ) ) {
@@ -59,12 +62,12 @@ function ad_check_birthdays() {
     $reference_date = time() + ($days_around_birthday * 24 * 60 * 60);
     
     foreach ($searchResult as $contact) {
-        // Only consider contacts that have a full set of data (birthday, first name, last name, email)
+    // Only consider contacts that have a full set of data (birthday, first name, last name, email)
 	// For other dates than birthday use the appropriate field from contact. date_parse($contact->date_of_birth) refers to the original birthday field (two times, one for day and one for mointh!). But it work for any other field as well. Just change it to the appropriate one.
-	// Firther, if you don't want to rely on a full set of data (first and last name), you can remove them from the query. Be aware that you won't be able to use those in you brithday email, if they do not exist!
+	// Further, if you don't want to rely on a full set of data (first and last name), you can remove them from the query. Be aware that you won't be able to use those in you brithday email, if they do not exist!
 	
-        if (date_parse($contact->date_of_birth)[month] == date('m',$reference_date) && date_parse($contact->date_of_birth)[day] == date('d',$reference_date) && $contact->first_name != "" && $contact-last_name != "" && $contact->email != "") {
-            // Set Tag to 'Happy Birthday!'. That is the trigger for the the automation. The automation kicks in when this Tag is assigned. Can also be a List.
+        if (date_parse($contact->date_of_birth)[month] == date('m',$reference_date) && date_parse($contact->date_of_birth)[day] == date('d',$reference_date) && $contact->first_name != "" && $contact->last_name != "" && $contact->email != "") {
+            // Set Tag to 'Happy Birthday!'. That is the trigger for the the automation. The automation kicks in when this tag is assigned. Can also be a List.
             $tagIds = [6];
             $contact->attachTags($tagIds);
         }
